@@ -37,7 +37,7 @@ class ProductIndex extends React.Component {
   }
 
   deleteProduct = (id) => {
-    API.delete("/read/" + id)
+    API.delete("/delete/" + id)
       .then((_res) => {
         this.render();
       })
@@ -70,7 +70,6 @@ class ProductIndex extends React.Component {
                 <td>{product.price}</td>
                 <td>
                   <ModalComponent id={product.id} text="Edit" />
-                  &nbsp;
                   <Button onClick={() => this.deleteProduct(product.id)}>
                     Delete
                   </Button>

@@ -12,7 +12,7 @@ class ProductCreate extends React.Component {
 
   componentDidMount() {
     const URL =
-      "https://us-central1-inventory-api-70328.cloudfunctions.net/app/api/read";
+      "https://us-central1-inventory-api-70328.cloudfunctions.net/app/api";
     fetch(URL)
       .then((res) => res.json())
       .then((response) => {
@@ -42,11 +42,10 @@ class ProductCreate extends React.Component {
             {products.map((product) => (
               <tr key={product.id}>
                 <td>{product.name}</td>
-                <td>{product.golongan}</td>
-                <td>{product.kasta}</td>
+                <td>{product.description}</td>
+                <td>{product.price}</td>
                 <td>
                   <ModalComponent id={product.id} text="Edit" />
-                  &nbsp;
                   <Button onClick={() => this.deleteProduct(product.id)}>
                     Delete
                   </Button>

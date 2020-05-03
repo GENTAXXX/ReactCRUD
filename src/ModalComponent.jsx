@@ -54,7 +54,7 @@ class ModalComponent extends React.Component {
     };
 
     if (this.state.isUpdate) {
-      API.put(`/read/${this.props.id}`, data, options)
+      API.put(`/update/${this.props.id}`, data, options)
         .then((res) => {
           this.setState({
             response: res.data.result,
@@ -64,7 +64,7 @@ class ModalComponent extends React.Component {
           this.setState({ error });
         });
     } else {
-      API.post("/read", data, options)
+      API.post("/create", data, options)
         .then((res) => {
           this.setState({
             response: res.data.result,
