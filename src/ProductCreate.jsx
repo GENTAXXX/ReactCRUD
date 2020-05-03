@@ -1,10 +1,7 @@
 import React from "react";
-import { Button } from "react-bootstrap";
-import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-import "../css/Table.css";
-import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+import { Button, Table } from "react-bootstrap";
 
-class AddForm extends React.Component {
+class ProductCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,30 +30,34 @@ class AddForm extends React.Component {
       return <div>Error : {error.message}</div>;
     } else {
       return (
-        <div>
-          {products.map((product) => (
-            <div>
-              <BootstrapTable key={wayang.id}>
-                <TableHeaderColumn>{product.name}</TableHeaderColumn>
-                <TableHeaderColumn>{product.description}</TableHeaderColumn>
-                <TableHeaderColumn>{product.price}</TableHeaderColumn>
-                <BootstrapTable.Footer>
+        <Table>
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Description</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>{product.name}</td>
+                <td>{product.golongan}</td>
+                <td>{product.kasta}</td>
+                <td>
                   <ModalComponent id={product.id} text="Edit" />
                   &nbsp;
-                  <Button
-                    variant="danger"
-                    onClick={() => this.deleteProduct(product.id)}
-                  >
+                  <Button onClick={() => this.deleteProduct(product.id)}>
                     Delete
                   </Button>
-                </BootstrapTable.Footer>
-              </BootstrapTable>
-            </div>
-          ))}
-        </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       );
     }
   }
 }
 
-export default AddForm;
+export default ProductCreate;

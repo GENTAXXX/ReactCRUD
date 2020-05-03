@@ -33,9 +33,9 @@ class ModalComponent extends React.Component {
   };
 
   getProduct = () => {
-    API.get(`/product/${this.props.id}`)
+    API.get(`/read/${this.props.id}`)
       .then((res) => {
-        this.setState({ data: res.data.result });
+        this.setState({ data: res.data });
       })
       .catch((error) => {
         this.setState({ error });
@@ -54,7 +54,7 @@ class ModalComponent extends React.Component {
     };
 
     if (this.state.isUpdate) {
-      API.put(`/product/${this.props.id}`, data, options)
+      API.put(`/read/${this.props.id}`, data, options)
         .then((res) => {
           this.setState({
             response: res.data.result,
@@ -64,7 +64,7 @@ class ModalComponent extends React.Component {
           this.setState({ error });
         });
     } else {
-      API.post("/product", data, options)
+      API.post("/read", data, options)
         .then((res) => {
           this.setState({
             response: res.data.result,
@@ -118,7 +118,7 @@ class ModalComponent extends React.Component {
           <Modal.Body>
             <Form>
               <Form.Group>
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Product Name</Form.Label>
                 <Form.Control
                   type="text"
                   name="name"

@@ -1,6 +1,6 @@
 import React from "react";
 import API from "./API";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import ModalComponent from "./ModalComponent";
 
 class ProductIndex extends React.Component {
@@ -26,9 +26,10 @@ class ProductIndex extends React.Component {
   }
 
   getProduct() {
-    API.get("/product")
+    API.get("/read")
       .then((res) => {
-        this.setState({ wayangs: res.data.result });
+        console.log(res);
+        this.setState({ products: res.data });
       })
       .catch((error) => {
         this.setState({ error });
@@ -36,8 +37,8 @@ class ProductIndex extends React.Component {
   }
 
   deleteProduct = (id) => {
-    API.delete("/product/" + id)
-      .then((res) => {
+    API.delete("/read/" + id)
+      .then((_res) => {
         this.render();
       })
       .catch((error) => {
@@ -53,27 +54,33 @@ class ProductIndex extends React.Component {
       return <div>Error : {error.message}</div>;
     } else {
       return (
-        <Row>
-          {products.map((product) => (
-            <Col key={product.id}>
-              <Card>
-                <Card.Title>{product.name}</Card.Title>
-                {/* <TableHeaderColumn>{product.description}</TableHeaderColumn>
-                <TableHeaderColumn>{product.price}</TableHeaderColumn> */}
-                <Card.Footer>
+        <Table>
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Description</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.price}</td>
+                <td>
                   <ModalComponent id={product.id} text="Edit" />
                   &nbsp;
-                  <Button variant="danger" onClick={() => this.deleteProduct(product.id)}>
+                  <Button onClick={() => this.deleteProduct(product.id)}>
                     Delete
                   </Button>
-                </Card.Footer>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       );
     }
   }
 }
-
 export default ProductIndex;

@@ -8,9 +8,7 @@ class App extends Component {
     return (
       <Container>
         <ModalComponent text="Tambah product"/>
-        <div>
           <ProductIndex/>
-        </div>
       </Container>
     );
   }
